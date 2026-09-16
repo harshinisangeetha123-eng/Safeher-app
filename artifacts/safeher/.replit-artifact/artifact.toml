@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "SafeHer Safety Alert"
+description = "A mobile-friendly women’s safety companion with a demo-only SOS flow, locally saved emergency contacts, one-time location sharing, siren and fake-call tools, incident reports, and profile settings."
+version = "1.0.0"
+id = "artifacts/safeher"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26252
+
+[services.development]
+run = "pnpm --filter @workspace/safeher run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/safeher", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/safeher/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26252"
+BASE_PATH = "/"

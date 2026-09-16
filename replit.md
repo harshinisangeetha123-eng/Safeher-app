@@ -1,10 +1,11 @@
-# [Project name]
+# SafeHer Safety Alert
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+SafeHer is a mobile-friendly safety companion with a demo-only SOS flow, local emergency contacts, one-time location sharing, safety tools, incident reports, and profile settings.
 
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/safeher run dev` — run the SafeHer web app through its managed workflow
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -22,23 +23,28 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/safeher/src/App.tsx` — app shell, routes, local persistence, SOS flow, safety tools, contacts, reports, and profile settings
+- `artifacts/safeher/src/index.css` — SafeHer visual theme and responsive styling
+- `artifacts/safeher/README.md` — run instructions and safety/privacy notes
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The first build is frontend-only and uses browser `localStorage` so the core app remains usable without a database or external service.
+- SOS is intentionally review-first and demo-only; no SMS, calls, or emergency-service contact occurs automatically.
+- Browser geolocation is requested only from explicit user actions and is never watched continuously.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The app gives users a calm home screen with a prominent SOS entry point, a persistent safety circle, one-time location tools, an audio siren, a fake incoming-call demo, private incident reports, and local profile/settings controls.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+The requested interface uses soft lavender, white, and light pink with rounded cards, readable type, clear icons, accessible touch targets, and bottom navigation on mobile.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Geolocation requires browser permission and may be unavailable in preview environments; the UI includes a manual fallback message.
+- SafeHer is not a replacement for local emergency services. Real messaging requires an explicitly configured, supported backend service.
 
 ## Pointers
 
